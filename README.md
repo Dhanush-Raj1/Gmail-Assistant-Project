@@ -187,4 +187,4 @@ Build a **React Native or Flutter app** for better mobile accessibility.
 💡 Have an idea? Feel free to contribute or open an issue and pull requests! 
 
 ## 📜 License
-This project is licensed under the MIT License.
+This project is licensed under the MIT License. Click to see the [LICENSE](LICENSE). 
