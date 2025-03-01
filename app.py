@@ -1,6 +1,6 @@
 import os  
 import streamlit as st  
-from src.main import GmailAssistant  
+from src.assistant_builder import GmailAssistant  
 from src.utils.helper import authenticate_gmail  
 
 # Page configuration  
