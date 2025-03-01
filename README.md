@@ -32,7 +32,7 @@ The user enters a request (e.g., "Find my latest emails from John").
 The input is processed and passed to the Groq-powered LLM.
 
 ### AI-driven Response:
-The AI interprets the query, calls the Gmail API, and retrieves relevant data.
+The AI agent interprets the query, calls the Gmail API, and retrieves relevant data.
 A structured response is generated and displayed in the UI.
 
 ### Chatbot UI:
