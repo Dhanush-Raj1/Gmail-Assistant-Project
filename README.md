@@ -3,9 +3,9 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=black&labelColor=white&color=red" />
-  <img src="https://img.shields.io/badge/Agno-43B02A?style=for-the-badge&logo=Agno&logoColor=black&labelColor=white&color=yellow" />
-  <img src="https://img.shields.io/badge/Groq-234452?style=for-the-badge&logoColor=black&labelColor=white&color=brown" />
-  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=black&labelColor=white&color=orange" />
+  <img src="https://img.shields.io/badge/Agno-43B02A?style=for-the-badge&logo=Agno&logoColor=black&labelColor=white&color=blue" />
+  <img src="https://img.shields.io/badge/Groq-234452?style=for-the-badge&logoColor=black&labelColor=white&color=brightgreen" />
+  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=black&labelColor=white&color=fuchsia" />
 </p>
 
 ---
@@ -151,13 +151,13 @@ streamlit run main.py
 
 ## 🖼️ Screenshots
 ✨ Authentication Page
-<img src="readme_images/authentication_page1.PNG" height="200" width="200">
+<img src="readme_images/authentication_page_1.PNG" height="400" width="400">
 
 ✨ Chatbot Interface
-<img src="readme_images/chatbot_inference.PNG" height="400" width="400">
+<img src="readme_images/chatbot_inference.PNG" height="600" width="600">
 
 ✨ Email Summarization
-<img src="readme_images/email_summarization.PNG" height="500" width="500">
+<img src="readme_images/email_summarization.PNG" height="550" width="650">
 
 <br>
 
