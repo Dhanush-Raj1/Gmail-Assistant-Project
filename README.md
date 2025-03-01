@@ -111,16 +111,42 @@ HF_TOKEN_LLAMA=your_huggingface_token
 streamlit run main.py
 ```
 
+
+
+## 📝 Usage Guide  
+
+### 🔹 Step 1: Authenticate with Gmail  
+- Click on the **"Authenticate with Gmail"** button.  
+- Sign in with your **Google account** and grant the necessary permissions.  
+
+### 🔹 Step 2: Perform Actions  
+
+### **Chat with the assistant in natural language*
+- Chat with the gmail assistant in natural langugage. Example:
+   1. Give me the summary of my latest emails
+   2. Find me the emails related to invoice
+   3. Send an email to <sender_email id> conveying that I'm free on wednesday at 4.30pm and ready to meet him about the investment.
+   4. What is the latest email about AI news? 
+
+#### 📩 **Retrieve Latest Emails**  
+- Click **"Fetch Latest Emails"** to get the most recent messages.  
+- The assistant will return **Sender, Subject, and Received Time** (converted to IST).  
+
+#### 🔍 **Search Emails**  
+- Enter a **keyword, sender email, or date** in the search bar.  
+- The assistant will list matching emails from the **Inbox and Spam folders**.  
+
+#### ✉️ **Send an Email**  
+- Enter the **recipient’s email**, **subject**, and **message body**.  
+- The assistant will send the email with a **structured format and a signature**.  
+
+#### 📂 **Manage Emails**  
+- View, organize, and handle emails based on **priority, sender, or time received**.  
+- Spam detection and handling for **junk or phishing emails**.  
+
+
 ---
 
-## 🌐 Usage Guide  
-1️⃣ Open the web app in your browser.  
-2️⃣ Enter a search query (e.g., *Find the price iphone 14 pro*).  
-3️⃣ Click the **Search** button.  
-4️⃣ View the retrieved product details and price comparisons.  
-
-
----
 
 ## 🖼️ Screenshots
 ✨ Authentication Page
@@ -129,7 +155,34 @@ streamlit run main.py
 
 ✨ Email Summarization
 
+
+
+## 🚀 Future Enhancements  
+
+🔹 **Memory-Based Conversations**  
+- Store chat history using a vector database (FAISS or PostgreSQL).  
+
+🔹 **Priority-Based Email Sorting**  
+- Categorize emails using **AI-driven importance detection**.  
+
+🔹 **Sentiment Analysis for Emails**  
+- Analyze email tone (positive, neutral, negative) before responding.  
+
+🔹 **Voice Commands Integration**  
+- Allow users to interact via voice instead of text input.  
+
+🔹 **Multi-Account Support**  
+- Enable switching between multiple Gmail accounts.  
+
+🔹 **Mobile App Version**  
+- Build a **React Native or Flutter app** for better mobile accessibility.  
+
 ---
+
+💡 Have an idea? Feel free to contribute or open an issue! 🚀  
+
+
+
 
 ## 🤝 Contributing
 Contributions are welcome! Feel free to submit issues and pull requests.
