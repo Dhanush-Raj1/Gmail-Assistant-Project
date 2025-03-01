@@ -56,14 +56,14 @@ User queries appear on the right, and assistant responses appear on the left, re
 
 ## 📂 Project Structure
 ```
-📂 Gmail-Assistant
-├── 📂 static                 # Static assets (images, styles)
+/📂 Gmail-Assistant
+├── /📂 static                 # Static assets (images, styles)
 │   ├── gmail-logo.png         # Logo for UI
-├── 📂 rough                   # Research and rough work purpose
-    ├── rough.py               # rough python file 
-├── 📂 src                     # Source code
+├── /📂 rough                   # Research and rough work purpose
+|    ├── rough.py               # rough python file 
+├── /📂 src                     # Source code
 │   ├── assistant_builder.py   # Core AI logic for Gmail operations
-│   ├── 📂 utils
+│   ├── /📂 utils
 │   │   ├── exception.py     # Custom exception handling
 |   |   ├── helper.py        # Google Oauth authentication
 ├── Pipfile                  # Dependencies (Pipenv)
