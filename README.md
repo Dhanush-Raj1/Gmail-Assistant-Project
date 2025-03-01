@@ -52,7 +52,7 @@ User queries appear on the right, and assistant responses appear on the left, re
 | **Gmail API** | Email retrieval and management |
 
 
-<br><
+<br>
 
 ## 📂 Project Structure
 ```
