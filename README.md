@@ -86,7 +86,7 @@ Pipenv (for managing dependencies)
 ### 1️⃣ Clone the repository:
 
 ```sh
-git clone https://github.com/yourusername/Gmail-Assistant-Project.git](https://github.com/Dhanush-Raj1/Gmail-Assistant-Project.git
+git clone https://github.com/Dhanush-Raj1/Gmail-Assistant-Project.git
 cd Gmail-Assistant-Project
 ```
 
