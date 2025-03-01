@@ -15,10 +15,10 @@
 - The Gmail Assistant is an AI-driven application that helps users interact with their Gmail accounts using natural language. Built with Agno AI (formerly Phidata), Groq LLM, and Streamlit. 
 - The assistant utilizes Google OAuth 2.0 for authentication and interacts with the Gmail API to fetch and manage emails securely.
 - It allows users to:
-    📩 Read emails – Retrieve and summarize recent emails.
-    🔍 Search emails – Find emails based on keywords, sender, or date.
-    ✉ Send emails – Compose and send emails via Gmail.
-    📂 Manage emails – Handle spam, categorize emails, and more.
+    📩 Read emails – Retrieve and summarize recent emails.  
+    🔍 Search emails – Find emails based on keywords, sender, or date.  
+    ✉ Send emails – Compose and send emails via Gmail.  
+    📂 Manage emails – Handle spam, categorize emails, and more.  
 
 <br><br>
 
@@ -161,28 +161,27 @@ streamlit run main.py
 ## 🚀 Future Enhancements  
 
 🔹 **Memory-Based Conversations**  
-- Store chat history using a vector database (FAISS or PostgreSQL).  
+Store chat history using a vector database (FAISS or PostgreSQL).  
 
 🔹 **Priority-Based Email Sorting**  
-- Categorize emails using **AI-driven importance detection**.  
+Categorize emails using **AI-driven importance detection**.  
 
 🔹 **Sentiment Analysis for Emails**  
-- Analyze email tone (positive, neutral, negative) before responding.  
+Analyze email tone (positive, neutral, negative) before responding.  
 
 🔹 **Voice Commands Integration**  
-- Allow users to interact via voice instead of text input.  
+Allow users to interact via voice instead of text input.  
 
 🔹 **Multi-Account Support**  
-- Enable switching between multiple Gmail accounts.  
+Enable switching between multiple Gmail accounts.  
 
 🔹 **Mobile App Version**  
-- Build a **React Native or Flutter app** for better mobile accessibility.  
+Build a **React Native or Flutter app** for better mobile accessibility.  
 
 <br><br>
 
 ## 🤝 Contributing
 💡 Have an idea? Feel free to contribute or open an issue and pull requests! 
-
 
 ## 📜 License
 This project is licensed under the MIT License.
