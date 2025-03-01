@@ -9,15 +9,16 @@
 </p>
 
 ---
+<br><br>
 
 ## 🚀 Project Overview
 - The Gmail Assistant is an AI-driven application that helps users interact with their Gmail accounts using natural language. Built with Agno AI (formerly Phidata), Groq LLM, and Streamlit. 
 - The assistant utilizes Google OAuth 2.0 for authentication and interacts with the Gmail API to fetch and manage emails securely.
 - It allows users to:
-    1. 📩 Read emails – Retrieve and summarize recent emails.
-    2. 🔍 Search emails – Find emails based on keywords, sender, or date.
-    3. ✉ Send emails – Compose and send emails via Gmail.
-    4. 📂 Manage emails – Handle spam, categorize emails, and more.
+    📩 Read emails – Retrieve and summarize recent emails.
+    🔍 Search emails – Find emails based on keywords, sender, or date.
+    ✉ Send emails – Compose and send emails via Gmail.
+    📂 Manage emails – Handle spam, categorize emails, and more.
 
 <br><br>
 
@@ -38,19 +39,20 @@ A structured response is generated and displayed in the UI.
 The web-based UI (built with Streamlit) allows users to interact seamlessly.
 User queries appear on the right, and assistant responses appear on the left, resembling a real chatbot.
 
-<br><br><br>
+<br><br>
 
 ## 🛠️ Tech Stack
-Technology	Purpose
-Python	Backend development
-Streamlit	Web UI
-Agno AI	AI model framework
-Groq LLM	Language model for email processing
-Hugging Face	Alternative LLM integration
-Google OAuth 2.0	User authentication
-Gmail API	Email retrieval and management
+| Technology | Description |
+|------------|-------------|
+| **Python** | Programming language used  |
+| **Streamlit** | Web framework for UI of the assistant |
+| **Agno AI (formerly Phidata)** | AI framework for building agents and tools |
+| **Groq LLM** | LLM for natural language processing |
+| **Google OAuth 2.0** | User authentication for using the gmail assistant  |
+| **Gmail API** | Email retrieval and management |
 
-<br><br><br><br><br>
+
+<br><br>
 
 ## 📂 Project Structure
 ```
@@ -71,6 +73,7 @@ Gmail API	Email retrieval and management
 ├── README.md                # Project documentation
 ```
 
+<br>
 
 ## 🚀 Setup & Installation
 
@@ -112,7 +115,7 @@ HF_TOKEN_LLAMA=your_huggingface_token
 streamlit run main.py
 ```
 
-
+<br><br>
 
 ## 📝 Usage Guide  
 
@@ -123,10 +126,10 @@ streamlit run main.py
 ### 🔹 Step 2: Perform Actions  
 ### *Chat with the assistant in natural language*
 - Chat with the gmail assistant in natural langugage. Example:
-   1. Give me the summary of my latest emails
-   2. Find me the emails related to invoice
-   3. Send an email to <sender_email id> conveying that I'm free on wednesday at 4.30pm and ready to meet him about the investment.
-   4. What is the latest email about AI news? 
+   - Give me the summary of my latest emails
+   - Find me the emails related to invoice
+   - Send an email to <sender_email id> conveying that I'm free on wednesday at 4.30pm and ready to meet him about the investment.
+   -  What is the latest email about AI news? 
 
 #### 📩 **Retrieve Latest Emails**  
 - Click **"Fetch Latest Emails"** to get the most recent messages.  
@@ -144,7 +147,7 @@ streamlit run main.py
 - View, organize, and handle emails based on **priority, sender, or time received**.  
 - Spam detection and handling for **junk or phishing emails**.  
 
-
+<br><br>
 
 ## 🖼️ Screenshots
 ✨ Authentication Page
@@ -153,7 +156,7 @@ streamlit run main.py
 
 ✨ Email Summarization
 
-
+<br><br>
 
 ## 🚀 Future Enhancements  
 
@@ -175,7 +178,7 @@ streamlit run main.py
 🔹 **Mobile App Version**  
 - Build a **React Native or Flutter app** for better mobile accessibility.  
 
-
+<br><br>
 
 ## 🤝 Contributing
 💡 Have an idea? Feel free to contribute or open an issue and pull requests! 
