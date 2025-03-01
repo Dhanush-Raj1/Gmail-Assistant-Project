@@ -1,5 +1,5 @@
 <h1 align="center"> 📧 Gmail Assistant </h1>
-<h3 align="center'> AI-powered Gmail assistant for reading, searching, sending, and managing emails efficiently. </h3>
+<h3 align="center"> AI-powered Gmail assistant for reading, searching, sending, and managing emails efficiently. </h3>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=black&labelColor=white&color=red" />
@@ -22,20 +22,19 @@
 
 
 ## 🎯 How the Project Works
-User Authentication:
-
+### User Authentication:
 The user authenticates with Gmail via OAuth 2.0.
 The app retrieves an access token to interact with Gmail services.
-Query Processing:
 
+### Query Processing:
 The user enters a request (e.g., "Find my latest emails from John").
 The input is processed and passed to the Groq-powered LLM.
-AI-driven Response:
 
+### AI-driven Response:
 The AI interprets the query, calls the Gmail API, and retrieves relevant data.
 A structured response is generated and displayed in the UI.
-Chatbot UI:
 
+### Chatbot UI:
 The web-based UI (built with Streamlit) allows users to interact seamlessly.
 User queries appear on the right, and assistant responses appear on the left, resembling a real chatbot.
 
@@ -120,8 +119,7 @@ streamlit run main.py
 - Sign in with your **Google account** and grant the necessary permissions.  
 
 ### 🔹 Step 2: Perform Actions  
-
-### **Chat with the assistant in natural language*
+### *Chat with the assistant in natural language*
 - Chat with the gmail assistant in natural langugage. Example:
    1. Give me the summary of my latest emails
    2. Find me the emails related to invoice
@@ -144,8 +142,6 @@ streamlit run main.py
 - View, organize, and handle emails based on **priority, sender, or time received**.  
 - Spam detection and handling for **junk or phishing emails**.  
 
-
----
 
 
 ## 🖼️ Screenshots
@@ -177,15 +173,11 @@ streamlit run main.py
 🔹 **Mobile App Version**  
 - Build a **React Native or Flutter app** for better mobile accessibility.  
 
----
-
-💡 Have an idea? Feel free to contribute or open an issue! 🚀  
-
-
 
 
 ## 🤝 Contributing
-Contributions are welcome! Feel free to submit issues and pull requests.
+💡 Have an idea? Feel free to contribute or open an issue and pull requests! 
+
 
 ## 📜 License
 This project is licensed under the MIT License.
