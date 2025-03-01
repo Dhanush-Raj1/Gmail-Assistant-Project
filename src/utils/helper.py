@@ -6,7 +6,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 def authenticate_gmail():
     try:
         flow = InstalledAppFlow.from_client_secrets_file(
-            "credentials.json", ["https://www.googleapis.com/auth/gmail.readonly"]
+            "credentials/credentials.json", ["https://www.googleapis.com/auth/gmail.readonly"]
         )
         creds = flow.run_local_server(port=0)
         st.session_state["gmail_creds"] = creds
