@@ -19,7 +19,7 @@
     3. ✉ Send emails – Compose and send emails via Gmail.
     4. 📂 Manage emails – Handle spam, categorize emails, and more.
 
-
+<br><br><br>
 
 ## 🎯 How the Project Works
 ### User Authentication:
@@ -38,6 +38,7 @@ A structured response is generated and displayed in the UI.
 The web-based UI (built with Streamlit) allows users to interact seamlessly.
 User queries appear on the right, and assistant responses appear on the left, resembling a real chatbot.
 
+<br><br><br><br>
 
 ## 🛠️ Tech Stack
 Technology	Purpose
@@ -49,6 +50,7 @@ Hugging Face	Alternative LLM integration
 Google OAuth 2.0	User authentication
 Gmail API	Email retrieval and management
 
+<br><br><br><br><br>
 
 ## 📂 Project Structure
 ```
