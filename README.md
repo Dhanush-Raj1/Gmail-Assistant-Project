@@ -150,14 +150,14 @@ streamlit run main.py
 <br>
 
 ## 🖼️ Screenshots
-✨ Authentication Page
-<img src="readme_images/authentication_page_1.PNG" height="500" width="600">
-
-✨ Chatbot Interface
-<img src="readme_images/chatbot_inference.PNG" height="600" width="800">
-
-✨ Email Summarization
-<img src="readme_images/email_summarization.PNG" height="600" width="800">
+✨ Authentication Page  
+<img src="readme_images/authentication_page_1.PNG" height="400" width="600">  
+<br>
+✨ Chatbot Interface    
+<img src="readme_images/chatbot_inference.PNG" height="570" width="800">  
+<br>
+✨ Email Summarization    
+<img src="readme_images/email_summarization.PNG" height="570" width="800">  
 
 <br>
 
