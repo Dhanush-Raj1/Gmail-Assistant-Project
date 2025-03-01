@@ -9,18 +9,18 @@
 </p>
 
 ---
-<br><br>
+<br>
 
 ## 🚀 Project Overview
 - The Gmail Assistant is an AI-driven application that helps users interact with their Gmail accounts using natural language. Built with Agno AI (formerly Phidata), Groq LLM, and Streamlit. 
 - The assistant utilizes Google OAuth 2.0 for authentication and interacts with the Gmail API to fetch and manage emails securely.
-- It allows users to:
+- It allows users to:  
     📩 Read emails – Retrieve and summarize recent emails.  
     🔍 Search emails – Find emails based on keywords, sender, or date.  
     ✉ Send emails – Compose and send emails via Gmail.  
     📂 Manage emails – Handle spam, categorize emails, and more.  
 
-<br><br>
+<br>
 
 ## 🎯 How the Project Works
 ### User Authentication:
@@ -39,7 +39,7 @@ A structured response is generated and displayed in the UI.
 The web-based UI (built with Streamlit) allows users to interact seamlessly.
 User queries appear on the right, and assistant responses appear on the left, resembling a real chatbot.
 
-<br><br>
+<br>
 
 ## 🛠️ Tech Stack
 | Technology | Description |
@@ -52,7 +52,7 @@ User queries appear on the right, and assistant responses appear on the left, re
 | **Gmail API** | Email retrieval and management |
 
 
-<br><br>
+<br><
 
 ## 📂 Project Structure
 ```
@@ -77,9 +77,9 @@ User queries appear on the right, and assistant responses appear on the left, re
 
 ## 🚀 Setup & Installation
 
-### Prerequisites
-Gmail API enabled with OAuth 2.0 credentials
-Pipenv (for managing dependencies)
+### Prerequisites  
+Gmail API enabled with OAuth 2.0 credentials  
+Pipenv (for managing dependencies)  
 
 ## Installation Steps
 
@@ -115,7 +115,7 @@ HF_TOKEN_LLAMA=your_huggingface_token
 streamlit run main.py
 ```
 
-<br><br>
+<br>
 
 ## 📝 Usage Guide  
 
@@ -147,7 +147,7 @@ streamlit run main.py
 - View, organize, and handle emails based on **priority, sender, or time received**.  
 - Spam detection and handling for **junk or phishing emails**.  
 
-<br><br>
+<br>
 
 ## 🖼️ Screenshots
 ✨ Authentication Page
@@ -156,7 +156,7 @@ streamlit run main.py
 
 ✨ Email Summarization
 
-<br><br>
+<br>
 
 ## 🚀 Future Enhancements  
 
@@ -178,7 +178,7 @@ Enable switching between multiple Gmail accounts.
 🔹 **Mobile App Version**  
 Build a **React Native or Flutter app** for better mobile accessibility.  
 
-<br><br>
+<br>
 
 ## 🤝 Contributing
 💡 Have an idea? Feel free to contribute or open an issue and pull requests! 
