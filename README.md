@@ -1,5 +1,4 @@
 <h1 align="center"> 📧 Gmail Assistant </h1>
-<h3 align="center"> End to End AI Agent Project: "AI-powered Gmail assistant for reading, searching, sending, and managing emails efficiently" </h3>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=black&labelColor=white&color=red" />
@@ -8,7 +7,8 @@
   <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=black&labelColor=white&color=fuchsia" />
 </p>
 
----
+<h3 align="center"> End to End AI Agent Project: "AI-powered Gmail assistant for reading, searching, sending, and managing emails efficiently" </h3>
+
 <br>
 
 ## 🚀 Project Overview
