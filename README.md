@@ -112,7 +112,7 @@ HF_TOKEN_LLAMA=your_huggingface_token
 ### 4️⃣ Run the application:
 
 ```
-streamlit run main.py
+streamlit run app.py
 ```
 
 <br>
