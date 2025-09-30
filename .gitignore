@@ -174,3 +174,4 @@ cython_debug/
 /credentials
 credentials.json
 token.json
+requirements1.txt
