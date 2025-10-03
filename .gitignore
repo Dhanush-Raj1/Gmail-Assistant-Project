@@ -175,3 +175,5 @@ cython_debug/
 credentials.json
 token.json
 requirements1.txt
+My-readme.md
+rough/
