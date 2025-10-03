@@ -48,7 +48,7 @@ def authenticate_gmail():
                 "https://www.googleapis.com/auth/gmail.modify",
                 "https://www.googleapis.com/auth/gmail.compose"
             ], 
-            redirect_uris=chosen_redirect_uri
+            redirect_uri=chosen_redirect_uri,
         )
 
         # works in both local + Streamlit Cloud with proper redirect
