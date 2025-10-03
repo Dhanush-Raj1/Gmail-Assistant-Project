@@ -137,10 +137,11 @@ def authenticate_gmail():
 
         # Choose redirect URI based on environment
         if "STREAMLIT_RUNTIME" in os.environ:
-            # Streamlit Cloud - use your deployed app URL
+            # Streamlit Cloud - use the deployed app URL (second URI in list)
             chosen_redirect_uri = redirect_uris[1] if len(redirect_uris) > 1 else redirect_uris[0]
         else: 
-            chosen_redirect_uri = "http://localhost:8501"
+            # Local development
+            chosen_redirect_uri = redirect_uris[0]
 
         # Create OAuth flow
         flow = Flow.from_client_secrets_file(
@@ -194,18 +195,37 @@ def authenticate_gmail():
                 st.error("State mismatch. Please try again.")
                 return None
         else:
-            # Show authorization link
-            st.markdown(f"""
-            ### 🔐 Gmail Authentication Required
+            # Show authorization button (single clean button)
+            st.markdown("### 🔐 Gmail Authentication Required")
+            st.write("Click the button below to authorize this app to access your Gmail:")
             
-            Click the button below to authorize this app to access your Gmail:
+            # Single styled button with link
+            st.markdown(f'''
+                <a href="{auth_url}" target="_self">
+                    <button style="
+                        background-color: #4285f4;
+                        color: white;
+                        padding: 12px 24px;
+                        border: none;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        font-size: 16px;
+                        font-weight: 500;
+                        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+                        transition: background-color 0.3s;
+                    ">
+                        🔓 Authorize Gmail Access
+                    </button>
+                </a>
+            ''', unsafe_allow_html=True)
             
-            [![Authenticate]({auth_url})]({auth_url})
-            """)
+            st.info("💡 After authorizing, you'll be redirected back to this app.")
             
-            st.markdown(f'<a href="{auth_url}" target="_blank"><button style="background-color:#4285f4;color:white;padding:10px 20px;border:none;border-radius:5px;cursor:pointer;font-size:16px;">🔓 Authorize Gmail Access</button></a>', unsafe_allow_html=True)
+            # Debug info (remove after testing)
+            with st.expander("Debug Info"):
+                st.write(f"Redirect URI being used: `{chosen_redirect_uri}`")
+                st.write(f"Environment: {'Streamlit Cloud' if 'STREAMLIT_RUNTIME' in os.environ else 'Local'}")
             
-            st.info("After authorizing, you'll be redirected back to this app.")
             return None
             
     except Exception as e:
