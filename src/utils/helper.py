@@ -90,17 +90,9 @@ def authenticate_gmail():
     try:
         # Build credentials structure
         if "client_id" in st.secrets:
-            # Handle redirect_uris - convert to list if it's a string
-            redirect_uris_raw = st.secrets["redirect_uris"]
-            if isinstance(redirect_uris_raw, str):
-                # If it's a string, try to parse it as JSON or split by comma
-                try:
-                    redirect_uris = json.loads(redirect_uris_raw)
-                except:
-                    redirect_uris = [uri.strip() for uri in redirect_uris_raw.split(',')]
-            else:
-                # It's already a list
-                redirect_uris = list(redirect_uris_raw)
+            redirect_uri_local = st.secrets.get("redirect_uri_local", "http://localhost:8501")
+            redirect_uri_cloud = st.secrets.get("redirect_uri_cloud", "https://gmail-assistant-project.streamlit.app")
+            redirect_uris = [redirect_uri_local, redirect_uri_cloud]
             
             credentials_dict = {
                 "web": {
