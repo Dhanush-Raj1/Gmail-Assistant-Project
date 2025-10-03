@@ -27,6 +27,7 @@ def authenticate_gmail():
             with open(cred_path, "w") as f:
                 json.dump(credentials_dict, f)
 
+        # if the app runs locally
         else: 
             cred_path = "credentials/credentials.json"
 
@@ -41,7 +42,12 @@ def authenticate_gmail():
                 "https://www.googleapis.com/auth/gmail.compose"
             ]
         )
-        creds = flow.run_local_server(port=0)
+
+        # detect environment (local or cloud)
+        if "STREAMLIT_RUNTIME" in os.environ:
+            creds = flow.run_console()
+        else:
+            creds = flow.run_local_server(port=0)
 
         # Save credentials
         with open("credentials/gmail_token.json", "w") as token:
