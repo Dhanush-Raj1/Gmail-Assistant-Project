@@ -14,6 +14,7 @@ from src.utils.exception import CustomException
 from dotenv import load_dotenv
 load_dotenv()
 
+HF_TOKEN = os.getenv("HF_TOKEN_MISTRAL")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
@@ -33,8 +34,9 @@ class GmailAssistant():
     def setup_gmail_agent()->Agent:
         try:
             agent = Agent(name="Gmail Agent",
-                        model=Groq(id="llama-3.3-70b-versatile",
-                                   response_format={"type": "json_object"}),
+                        model=Groq(id="llama-3.3-70b-versatile"), #llama-3.3-70b-versatile, llama-3.1-8b-instant
+                                   #response_format={"type": "json_object"}), 
+                        #model=HuggingFace(id="mistralai/Mistral-7B-v0.1"),
                         tools=[GmailTools()],
                         description=dedent("""\
                                             You are an AI-powered Gmail assistant that can read, search, send, and manage emails.
@@ -44,11 +46,6 @@ class GmailAssistant():
                                             2. Sending emails with structured content.
                                             3. Searching emails using keywords, date, or sender.
                                             4. Managing emails effectively."""),
-                        # instructions=dedent("""\
-                        #                 **Instructions:**
-                        #                 - Return email summaries with sender, subject, and date.
-                        #                 - When sending emails, include subject, content, and a signature.
-                        #                 - Fetch latest emails sorted by date."""),
                         instructions=dedent("""\
                                             Instructions for handling tasks:
 
@@ -75,6 +72,7 @@ class GmailAssistant():
                                                 - Include both received and sent emails.
 
                                             4. **Fetching Latest Emails**:
+                                                - When using get_latest_emails tool, always pass count as a NUMBER, not a string.
                                                 - Return a numbered list:
                                                   - **Sender Email**
                                                   - **Brief Summary**
@@ -84,12 +82,16 @@ class GmailAssistant():
                                             5. **Fetching Emails from a Specific User**:
                                                 - Search all emails from a given sender.
                                                 - Convert received time to IST.
-                                                - Return a numbered list sorted by date (latest first)."""),
+                                                - Return a numbered list sorted by date (latest first).
+                                            
+                                            IMPORTANT: When calling tools, ensure all numeric parameters are passed as numbers, not strings."""),
                         add_history_to_messages=False,
-                        reasoning=True,
-                        structured_outputs=True,
-                        show_tool_calls=False,
-                        markdown=True,)
+                        reasoning=False,
+                        structured_outputs=False,
+                        show_tool_calls=True,
+                        debug_mode=True,
+                        markdown=True)
+
             return agent
         
         except Exception as e:
