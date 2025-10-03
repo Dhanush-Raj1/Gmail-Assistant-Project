@@ -7,7 +7,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 # Function to handle Gmail Authentication
 def authenticate_gmail():
     try:
-        # if the app runs on streamit cloud
+        # pick credentials source based on deployment environment
         if "client_id" in st.secrets:
             # build credentials.json structure
             credentials_dict = {
@@ -20,16 +20,23 @@ def authenticate_gmail():
                     "redirect_uris": st.secrets["redirect_uris"]
                 }
             }
-
+            redirect_uris = st.secrets["redirect_uris"]
             # write to a temporary credentials file
-            os.makedirs("credentials", exist_ok=True)
+            os.makedirs("credentials", exist_ok=True)        
             cred_path = "credentials/temp_credentials.json"
             with open(cred_path, "w") as f:
                 json.dump(credentials_dict, f)
-
         # if the app runs locally
         else: 
             cred_path = "credentials/credentials.json"
+
+
+        # choose redirect URI based on environment 
+        if "STREAMLIT_RUNTIME" in os.environ:
+            chosen_redirect_uri = redirect_uris[1]
+        else: 
+            chosen_redirect_uri = redirect_uris[0]
+
 
         # Start OAuth flow 
         flow = InstalledAppFlow.from_client_secrets_file(
@@ -40,14 +47,12 @@ def authenticate_gmail():
                 "https://www.googleapis.com/auth/gmail.send",
                 "https://www.googleapis.com/auth/gmail.modify",
                 "https://www.googleapis.com/auth/gmail.compose"
-            ]
+            ], 
+            redirect_uris=chosen_redirect_uri
         )
 
-        # detect environment (local or cloud)
-        if "STREAMLIT_RUNTIME" in os.environ:
-            creds = flow.run_console()
-        else:
-            creds = flow.run_local_server(port=0)
+        # works in both local + Streamlit Cloud with proper redirect
+        creds = flow.run_local_server(port=0)
 
         # Save credentials
         with open("credentials/gmail_token.json", "w") as token:
