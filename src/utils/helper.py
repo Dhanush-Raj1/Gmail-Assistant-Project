@@ -90,17 +90,28 @@ def authenticate_gmail():
     try:
         # Build credentials structure
         if "client_id" in st.secrets:
+            # Handle redirect_uris - convert to list if it's a string
+            redirect_uris_raw = st.secrets["redirect_uris"]
+            if isinstance(redirect_uris_raw, str):
+                # If it's a string, try to parse it as JSON or split by comma
+                try:
+                    redirect_uris = json.loads(redirect_uris_raw)
+                except:
+                    redirect_uris = [uri.strip() for uri in redirect_uris_raw.split(',')]
+            else:
+                # It's already a list
+                redirect_uris = list(redirect_uris_raw)
+            
             credentials_dict = {
-                "web": {  # Changed from "installed" to "web"
+                "web": {
                     "client_id": st.secrets["client_id"],
                     "project_id": st.secrets["project_id"],
                     "auth_uri": st.secrets["auth_uri"],
                     "token_uri": st.secrets["token_uri"],
                     "client_secret": st.secrets["client_secret"],
-                    "redirect_uris": st.secrets["redirect_uris"]
+                    "redirect_uris": redirect_uris
                 }
             }
-            redirect_uris = st.secrets["redirect_uris"]
             
             os.makedirs("credentials", exist_ok=True)        
             cred_path = "credentials/temp_credentials.json"
@@ -136,12 +147,25 @@ def authenticate_gmail():
                 return creds
 
         # Choose redirect URI based on environment
-        if "STREAMLIT_RUNTIME" in os.environ:
-            # Streamlit Cloud - use the deployed app URL (second URI in list)
-            chosen_redirect_uri = redirect_uris[1] if len(redirect_uris) > 1 else redirect_uris[0]
+        if "STREAMLIT_RUNTIME" in os.environ or "STREAMLIT_SHARING_MODE" in os.environ:
+            # Streamlit Cloud - use the deployed app URL
+            # Find the non-localhost URI
+            cloud_uri = None
+            for uri in redirect_uris:
+                if "localhost" not in uri and "127.0.0.1" not in uri:
+                    cloud_uri = uri
+                    break
+            
+            chosen_redirect_uri = cloud_uri if cloud_uri else redirect_uris[-1]
         else: 
-            # Local development
-            chosen_redirect_uri = redirect_uris[0]
+            # Local development - use localhost
+            local_uri = None
+            for uri in redirect_uris:
+                if "localhost" in uri or "127.0.0.1" in uri:
+                    local_uri = uri
+                    break
+            
+            chosen_redirect_uri = local_uri if local_uri else redirect_uris[0]
 
         # Create OAuth flow
         flow = Flow.from_client_secrets_file(
@@ -171,26 +195,31 @@ def authenticate_gmail():
         if 'code' in query_params:
             auth_code = query_params['code']
             
-            # Verify state matches
-            if 'state' in query_params and query_params['state'] == st.session_state.get('oauth_state'):
-                # Exchange code for credentials
-                flow.fetch_token(code=auth_code)
-                creds = flow.credentials
+            # Verify state matches (if state exists in params)
+            if 'state' not in query_params or query_params['state'] == st.session_state.get('oauth_state'):
+                try:
+                    # Exchange code for credentials
+                    flow.fetch_token(code=auth_code)
+                    creds = flow.credentials
 
-                # Save credentials
-                with open("credentials/gmail_token.json", "w") as token:
-                    token.write(creds.to_json())
+                    # Save credentials
+                    with open("credentials/gmail_token.json", "w") as token:
+                        token.write(creds.to_json())
 
-                st.session_state["gmail_creds"] = creds
-                st.session_state["auth_status"] = True
-                
-                # Clear query params
-                st.query_params.clear()
-                
-                st.success("✅ Successfully authenticated with Gmail!")
-                st.rerun()
-                
-                return creds
+                    st.session_state["gmail_creds"] = creds
+                    st.session_state["auth_status"] = True
+                    
+                    # Clear query params
+                    st.query_params.clear()
+                    
+                    st.success("✅ Successfully authenticated with Gmail!")
+                    st.rerun()
+                    
+                    return creds
+                except Exception as token_error:
+                    st.error(f"Failed to exchange code for token: {token_error}")
+                    st.info("Please try authenticating again.")
+                    return None
             else:
                 st.error("State mismatch. Please try again.")
                 return None
@@ -221,15 +250,17 @@ def authenticate_gmail():
             
             st.info("💡 After authorizing, you'll be redirected back to this app.")
             
-            # Debug info (remove after testing)
-            with st.expander("Debug Info"):
-                st.write(f"Redirect URI being used: `{chosen_redirect_uri}`")
-                st.write(f"Environment: {'Streamlit Cloud' if 'STREAMLIT_RUNTIME' in os.environ else 'Local'}")
+            # Debug info
+            with st.expander("🔍 Debug Info"):
+                st.write(f"**Redirect URI being used:** `{chosen_redirect_uri}`")
+                st.write(f"**Environment:** {'Streamlit Cloud' if 'STREAMLIT_RUNTIME' in os.environ else 'Local'}")
+                st.write(f"**All redirect URIs:** {redirect_uris}")
+                st.write(f"**Auth URL (first 100 chars):** {auth_url[:100]}...")
             
             return None
             
     except Exception as e:
-        st.error(f"Authentication failed: {e}")
+        st.error(f"❌ Authentication failed: {e}")
         import traceback
         st.error(traceback.format_exc())
         return None
