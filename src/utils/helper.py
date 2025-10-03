@@ -110,11 +110,11 @@ def authenticate_gmail():
             with open(cred_path, "w") as f:
                 json.dump(credentials_dict, f)
         else: 
+            # Local credentials file
             cred_path = "credentials/credentials.json"
             with open(cred_path, "r") as f:
                 credentials_dict = json.load(f)
-            redirect_uris = credentials_dict.get("web", {}).get("redirect_uris", 
-                           credentials_dict.get("installed", {}).get("redirect_uris", []))
+            redirect_uris = credentials_dict.get("web", {}).get("redirect_uris", [])
 
         # Check if we already have valid credentials
         if os.path.exists("credentials/gmail_token.json"):
@@ -141,7 +141,6 @@ def authenticate_gmail():
         # Choose redirect URI based on environment
         if "STREAMLIT_RUNTIME" in os.environ or "STREAMLIT_SHARING_MODE" in os.environ:
             # Streamlit Cloud - use the deployed app URL
-            # Find the non-localhost URI
             cloud_uri = None
             for uri in redirect_uris:
                 if "localhost" not in uri and "127.0.0.1" not in uri:
@@ -216,11 +215,10 @@ def authenticate_gmail():
                 st.error("State mismatch. Please try again.")
                 return None
         else:
-            # Show authorization button (single clean button)
+            # Show authorization button
             st.markdown("### 🔐 Gmail Authentication Required")
             st.write("Click the button below to authorize this app to access your Gmail:")
             
-            # Single styled button with link
             st.markdown(f'''
                 <a href="{auth_url}" target="_self">
                     <button style="
@@ -247,7 +245,6 @@ def authenticate_gmail():
                 st.write(f"**Redirect URI being used:** `{chosen_redirect_uri}`")
                 st.write(f"**Environment:** {'Streamlit Cloud' if 'STREAMLIT_RUNTIME' in os.environ else 'Local'}")
                 st.write(f"**All redirect URIs:** {redirect_uris}")
-                st.write(f"**Auth URL (first 100 chars):** {auth_url[:100]}...")
             
             return None
             
