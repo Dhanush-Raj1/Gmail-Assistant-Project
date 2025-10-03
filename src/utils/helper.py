@@ -52,7 +52,10 @@ def authenticate_gmail():
         )
 
         # works in both local + Streamlit Cloud with proper redirect
-        creds = flow.run_local_server(port=0)
+        if "STREAMLIT_RUNTIME" in os.environ:
+            creds = flow.run_local_server(port=8501, open_browser=False)
+        else:
+            creds = flow.run_local_server(port=0)
 
         # Save credentials
         with open("credentials/gmail_token.json", "w") as token:
