@@ -75,7 +75,7 @@
 #     except Exception as e:
 #         st.error(f"Authentication failed: {e}") 
 
-import os 
+import os      
 import json
 import streamlit as st
 from google_auth_oauthlib.flow import Flow
@@ -85,7 +85,7 @@ from google.auth.transport.requests import Request
 
 def authenticate_gmail():
     """
-    Handle Gmail Authentication for both local and Streamlit Cloud environments
+    Handle Gmail Authentication for both local and Streamlit Cloud 
     """
     try:
         # Build credentials structure
@@ -128,37 +128,27 @@ def authenticate_gmail():
                 
                 st.session_state["gmail_creds"] = creds
                 st.session_state["auth_status"] = True
-                st.success("✅ Successfully authenticated with Gmail!")
+                st.success("Successfully authenticated with Gmail!")
                 return creds
             
             # If valid, use existing credentials
             elif creds and creds.valid:
                 st.session_state["gmail_creds"] = creds
                 st.session_state["auth_status"] = True
-                st.success("✅ Already authenticated with Gmail!")
+                st.success("Already authenticated with Gmail!")
                 return creds
 
-        # Choose redirect URI based on environment
-        if "STREAMLIT_RUNTIME" in os.environ or "STREAMLIT_SHARING_MODE" in os.environ:
-            # Streamlit Cloud - use the deployed app URL
-            cloud_uri = None
-            for uri in redirect_uris:
-                if "localhost" not in uri and "127.0.0.1" not in uri:
-                    cloud_uri = uri
-                    break
-            
-            chosen_redirect_uri = cloud_uri if cloud_uri else redirect_uris[-1]
+        # Determine environment and choose redirect URI
+        is_cloud = "STREAMLIT_RUNTIME" in os.environ or "STREAMLIT_SHARING_MODE" in os.environ
+        
+        if is_cloud:
+            # Streamlit Cloud - use the cloud URL
+            chosen_redirect_uri = redirect_uri_cloud
         else: 
             # Local development - use localhost
-            local_uri = None
-            for uri in redirect_uris:
-                if "localhost" in uri or "127.0.0.1" in uri:
-                    local_uri = uri
-                    break
-            
-            chosen_redirect_uri = local_uri if local_uri else redirect_uris[0]
+            chosen_redirect_uri = redirect_uri_local
 
-        # Create OAuth flow
+        # Create OAuth flow with the chosen redirect URI
         flow = Flow.from_client_secrets_file(
             cred_path,
             scopes=[
@@ -177,8 +167,9 @@ def authenticate_gmail():
             prompt='consent'
         )
 
-        # Store state in session
+        # Store state and flow in session for later verification
         st.session_state['oauth_state'] = state
+        st.session_state['oauth_flow'] = flow
 
         # Check if we have an authorization code in URL params
         query_params = st.query_params
@@ -186,8 +177,10 @@ def authenticate_gmail():
         if 'code' in query_params:
             auth_code = query_params['code']
             
-            # Verify state matches (if state exists in params)
-            if 'state' not in query_params or query_params['state'] == st.session_state.get('oauth_state'):
+            # Get the flow from session
+            if 'oauth_flow' in st.session_state:
+                flow = st.session_state['oauth_flow']
+                
                 try:
                     # Exchange code for credentials
                     flow.fetch_token(code=auth_code)
@@ -200,56 +193,54 @@ def authenticate_gmail():
                     st.session_state["gmail_creds"] = creds
                     st.session_state["auth_status"] = True
                     
-                    # Clear query params
+                    # Clear query params and oauth session data
                     st.query_params.clear()
+                    if 'oauth_flow' in st.session_state:
+                        del st.session_state['oauth_flow']
+                    if 'oauth_state' in st.session_state:
+                        del st.session_state['oauth_state']
                     
-                    st.success("✅ Successfully authenticated with Gmail!")
+                    st.success("Successfully authenticated with Gmail!")
                     st.rerun()
                     
                     return creds
                 except Exception as token_error:
                     st.error(f"Failed to exchange code for token: {token_error}")
                     st.info("Please try authenticating again.")
+                    # Clear oauth data
+                    if 'oauth_flow' in st.session_state:
+                        del st.session_state['oauth_flow']
                     return None
             else:
-                st.error("State mismatch. Please try again.")
+                st.error("OAuth session expired. Please authenticate again.")
                 return None
         else:
-            # Show authorization button
-            st.markdown("### 🔐 Gmail Authentication Required")
-            st.write("Click the button below to authorize this app to access your Gmail:")
+            # Show authorization instructions
+            st.markdown("### Gmail Authentication Required")
+            st.write("To use this app, you need to authorize access to your Gmail account.")
             
-            st.markdown(f'''
-                <a href="{auth_url}" target="_self">
-                    <button style="
-                        background-color: #4285f4;
-                        color: white;
-                        padding: 12px 24px;
-                        border: none;
-                        border-radius: 5px;
-                        cursor: pointer;
-                        font-size: 16px;
-                        font-weight: 500;
-                        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-                        transition: background-color 0.3s;
-                    ">
-                        🔓 Authorize Gmail Access
-                    </button>
-                </a>
-            ''', unsafe_allow_html=True)
+            # Display the authorization URL as a clickable link
+            st.markdown(f"**[Click here to authorize Gmail access]({auth_url})**")
             
-            st.info("💡 After authorizing, you'll be redirected back to this app.")
+            st.info("After authorizing, you'll be redirected back to this app automatically.")
             
             # Debug info
-            with st.expander("🔍 Debug Info"):
+            with st.expander("Debug Info (check this first!)"):
                 st.write(f"**Redirect URI being used:** `{chosen_redirect_uri}`")
-                st.write(f"**Environment:** {'Streamlit Cloud' if 'STREAMLIT_RUNTIME' in os.environ else 'Local'}")
-                st.write(f"**All redirect URIs:** {redirect_uris}")
+                st.write(f"**Environment detected:** {'Streamlit Cloud' if is_cloud else 'Local Development'}")
+                st.write(f"**Is cloud?** {is_cloud}")
+                st.write(f"**STREAMLIT_RUNTIME exists?** {'STREAMLIT_RUNTIME' in os.environ}")
+                
+                # Show first part of auth URL to verify redirect_uri parameter
+                if 'redirect_uri=' in auth_url:
+                    redirect_param = auth_url.split('redirect_uri=')[1].split('&')[0]
+                    from urllib.parse import unquote
+                    st.write(f"**Actual redirect_uri in auth URL:** `{unquote(redirect_param)}`")
             
             return None
             
     except Exception as e:
-        st.error(f"❌ Authentication failed: {e}")
+        st.error(f"Authentication failed: {e}")
         import traceback
         st.error(traceback.format_exc())
         return None
