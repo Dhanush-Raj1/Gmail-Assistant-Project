@@ -85,7 +85,7 @@ def main():
         st.image("static/gmail-logo-64px.png")  
 
     with col2:
-       st.title("Gmail Assistant check")  # Title stays next to the logo
+       st.title("Gmail Assistant")  # Title stays next to the logo
     
     st.caption("AI-powered assistant to manage your emails effortlessly.")  
 
