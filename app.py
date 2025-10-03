@@ -107,7 +107,9 @@ def main():
             st.session_state.current_query = quick_actions[selected_action]  
 
     if auth_button:  
-        authenticate_gmail()  
+        creds = authenticate_gmail()  
+        if creds:
+            st.rerun()
 
     # Display chat history if authenticated  
     if not st.session_state.auth_status:  
