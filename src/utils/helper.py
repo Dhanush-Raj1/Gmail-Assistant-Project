@@ -75,7 +75,7 @@
 #     except Exception as e:
 #         st.error(f"Authentication failed: {e}") 
 
-import os      
+import os 
 import json
 import streamlit as st
 from google_auth_oauthlib.flow import Flow
@@ -85,7 +85,7 @@ from google.auth.transport.requests import Request
 
 def authenticate_gmail():
     """
-    Handle Gmail Authentication for both local and Streamlit Cloud 
+    Handle Gmail Authentication for both local and Streamlit Cloud environments
     """
     try:
         # Build credentials structure
@@ -139,13 +139,20 @@ def authenticate_gmail():
                 return creds
 
         # Determine environment and choose redirect URI
-        is_cloud = "STREAMLIT_RUNTIME" in os.environ or "STREAMLIT_SHARING_MODE" in os.environ
+        # Check multiple indicators for cloud deployment
+        is_cloud = (
+            "STREAMLIT_RUNTIME" in os.environ or 
+            "STREAMLIT_SHARING_MODE" in os.environ or
+            os.path.exists("/.streamlit") or  # Streamlit Cloud specific directory
+            "client_id" in st.secrets  # If using secrets, likely in cloud
+        )
         
-        if is_cloud:
-            # Streamlit Cloud - use the cloud URL
+        # Force cloud URI if we're using secrets (most reliable indicator)
+        if "client_id" in st.secrets:
+            chosen_redirect_uri = redirect_uri_cloud
+        elif is_cloud:
             chosen_redirect_uri = redirect_uri_cloud
         else: 
-            # Local development - use localhost
             chosen_redirect_uri = redirect_uri_local
 
         # Create OAuth flow with the chosen redirect URI
@@ -229,7 +236,10 @@ def authenticate_gmail():
                 st.write(f"**Redirect URI being used:** `{chosen_redirect_uri}`")
                 st.write(f"**Environment detected:** {'Streamlit Cloud' if is_cloud else 'Local Development'}")
                 st.write(f"**Is cloud?** {is_cloud}")
+                st.write(f"**Using st.secrets?** {'client_id' in st.secrets}")
                 st.write(f"**STREAMLIT_RUNTIME exists?** {'STREAMLIT_RUNTIME' in os.environ}")
+                st.write(f"**STREAMLIT_SHARING_MODE exists?** {'STREAMLIT_SHARING_MODE' in os.environ}")
+                st.write(f"**/.streamlit exists?** {os.path.exists('/.streamlit')}")
                 
                 # Show first part of auth URL to verify redirect_uri parameter
                 if 'redirect_uri=' in auth_url:
