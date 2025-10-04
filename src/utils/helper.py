@@ -147,14 +147,17 @@ def authenticate_gmail():
             "client_id" in st.secrets  # If using secrets, likely in cloud
         )
         
-        # Force cloud URI if we're using secrets (most reliable indicator)
-        if "client_id" in st.secrets:
+        # Check manual environment override first
+        if st.secrets.get("environment") == "cloud":
+            chosen_redirect_uri = redirect_uri_cloud
+        elif "client_id" in st.secrets:
+            # If using secrets without local credentials file, assume cloud
             chosen_redirect_uri = redirect_uri_cloud
         elif is_cloud:
             chosen_redirect_uri = redirect_uri_cloud
         else: 
             chosen_redirect_uri = redirect_uri_local
-
+        
         # Create OAuth flow with the chosen redirect URI
         flow = Flow.from_client_secrets_file(
             cred_path,
