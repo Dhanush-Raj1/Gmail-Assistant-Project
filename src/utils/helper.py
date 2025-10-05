@@ -90,8 +90,8 @@ def authenticate_gmail():
     try:
         # Build credentials structure
         if "client_id" in st.secrets:
-            redirect_uri_local = st.secrets.get("redirect_uri_local", "http://localhost:8501")
-            redirect_uri_cloud = st.secrets.get("redirect_uri_cloud", "https://gmail-assistant-project.streamit.app")
+            redirect_uri_local = st.secrets.get("redirect_uri_local")
+            redirect_uri_cloud = st.secrets.get("redirect_uri_cloud")
             redirect_uris = [redirect_uri_local, redirect_uri_cloud]
             
             credentials_dict = {
@@ -116,28 +116,36 @@ def authenticate_gmail():
                 credentials_dict = json.load(f)
             redirect_uris = credentials_dict.get("web", {}).get("redirect_uris", [])
 
+
         # Check if we already have valid credentials
         # auto authentication, doesn't need to go through full OAuth flow again
         if os.path.exists("credentials/gmail_token.json"):
-            creds = Credentials.from_authorized_user_file("credentials/gmail_token.json")
+            try:
+                creds = Credentials.from_authorized_user_file("credentials/gmail_token.json")
             
-            # Refresh if expired
-            if creds and creds.expired and creds.refresh_token:
-                creds.refresh(Request())
-                with open("credentials/gmail_token.json", "w") as token:
-                    token.write(creds.to_json())
+                # Refresh if expired
+                if creds and creds.expired and creds.refresh_token:
+                    creds.refresh(Request())
+                    with open("credentials/gmail_token.json", "w") as token:
+                        token.write(creds.to_json())
+
+                    st.session_state["gmail_creds"] = creds
+                    st.session_state["auth_status"] = True
+                    st.success("Successfully authenticated with Gmail!")
+                    return creds
+
+                # If valid, use existing credentials
+                elif creds and creds.valid:
+                    st.session_state["gmail_creds"] = creds
+                    st.session_state["auth_status"] = True
+                    st.success("Already authenticated with Gmail!")
+                    return creds
                 
-                st.session_state["gmail_creds"] = creds
-                st.session_state["auth_status"] = True
-                st.success("Successfully authenticated with Gmail!")
-                return creds
-            
-            # If valid, use existing credentials
-            elif creds and creds.valid:
-                st.session_state["gmail_creds"] = creds
-                st.session_state["auth_status"] = True
-                st.success("Already authenticated with Gmail!")
-                return creds
+            except ValueError as e:
+                # Token file is corrupted or missing refresh_token
+                st.warning("Existing credentials are invalid. Please authenticate again.")
+                os.remove("credentials/gmail_token.json")
+
 
         # Determine environment and choose redirect URI
         if st.secrets.get("environment") == "cloud":
@@ -147,6 +155,7 @@ def authenticate_gmail():
             chosen_redirect_uri = redirect_uri_cloud
         else: 
             chosen_redirect_uri = redirect_uri_local
+        
         
         # Create OAuth flow with the chosen redirect URI
         flow = Flow.from_client_secrets_file(
