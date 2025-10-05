@@ -196,7 +196,7 @@ def initialize_session_state():
     if "current_query" not in st.session_state:  
         st.session_state.current_query = ""
     
-    # Initialize agent ONLY after authentication since the agent requires gmail_creds to be passed to 'creds' param 
+    # Initialize agent ONLY after authentication
     if st.session_state.auth_status and "agent" not in st.session_state:
         try:
             with st.spinner("Initializing Gmail Assistant..."):  
@@ -257,13 +257,20 @@ def main():
         # Show authentication status
         if st.session_state.auth_status:
             st.success("✅ Authenticated")
-            if st.button("Re-authenticate"):
-                # Clear credentials and force re-authentication
+            if st.button("Re-authenticate / Switch Account"):
+                # Clear credentials from session state
                 if "gmail_creds" in st.session_state:
                     del st.session_state["gmail_creds"]
                 if "agent" in st.session_state:
                     del st.session_state["agent"]
+                
+                # CRITICAL: Delete the token file to force new OAuth flow
+                token_path = "credentials/gmail_token.json"
+                if os.path.exists(token_path):
+                    os.remove(token_path)
+                
                 st.session_state.auth_status = False
+                st.info("Credentials cleared. Click 'Authenticate with Gmail' to sign in with a different account.")
                 st.rerun()
         else:
             auth_button = st.button("Authenticate with Gmail")
@@ -277,7 +284,9 @@ def main():
             st.header("⚡ Quick Actions")  
             quick_actions = {  
                 "📩 Get latest emails": "Get me the latest 3 emails and summarize them in under 200 words.",  
-                "🔍 Search emails by keyword": "Search for emails related to 'invoice'.",  
+                "📧 Get unread emails": "Get me the latest 5 unread emails and summarize them.",
+                "🔍 Search emails by keyword": "Search for emails related to 'invoice'.",
+                "📅 Get emails by date": "Get me all emails received on 2024-01-15.",
                 "📨 Send an email": "Send an email to example@gmail.com with subject 'Meeting' and content 'Let's meet tomorrow at 10 AM.'"  
             }  
             
