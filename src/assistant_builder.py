@@ -171,9 +171,9 @@ class GmailAssistant():
                     1. Reading emails with attention to detail.
                     2. Sending emails with structured content.
                     3. Searching emails using keywords, date, or sender.
-                    4. Managing emails effectively.
+                    4. Managing emails effectively."""),
                     
-                    CRITICAL: You must ALWAYS use the available tools to perform actions. Never just describe what you would do."""),
+                    # CRITICAL: You must ALWAYS use the available tools to perform actions. Never just describe what you would do.
                 instructions=dedent("""\
                     Instructions for handling tasks:
 
@@ -226,7 +226,7 @@ class GmailAssistant():
                 reasoning=False,
                 structured_outputs=False,
                 show_tool_calls=True,
-                debug_mode=True,  # Set to False to avoid verbose output
+                debug_mode=True,  
                 markdown=True)
 
             return agent

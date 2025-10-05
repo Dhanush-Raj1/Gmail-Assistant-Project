@@ -196,7 +196,7 @@ def initialize_session_state():
     if "current_query" not in st.session_state:  
         st.session_state.current_query = ""
     
-    # Initialize agent ONLY after authentication
+    # Initialize agent ONLY after authentication since the agent requires gmail_creds to be passed to 'creds' param 
     if st.session_state.auth_status and "agent" not in st.session_state:
         try:
             with st.spinner("Initializing Gmail Assistant..."):  
