@@ -164,7 +164,7 @@ def authenticate_gmail():
         auth_url, state = flow.authorization_url(
             access_type='offline',
             include_granted_scopes='true',
-            prompt='select_account'  # Forces account selection screen'
+            prompt='consent'
         )
 
         # Store state and flow in session for later verification
