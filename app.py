@@ -287,7 +287,7 @@ def main():
                 "📧 Get unread emails": "Get me the latest 5 unread emails and summarize them.",
                 "🔍 Search emails by keyword": "Search for emails related to 'invoice'.",
                 "📅 Get emails by date": "Get me all emails received on 2024-01-15.",
-                "📨 Send an email": "Send an email to example@gmail.com with subject 'Meeting' and content 'Let's meet tomorrow at 10 AM.'"  
+                "📨 Send an email": "Send an email to example@gmail.com with subject 'Meeting' and content 'Let's meet tomorrow at 10 AM'"  
             }  
             
             selected_action = st.radio("Choose an action:", quick_actions.keys())  
