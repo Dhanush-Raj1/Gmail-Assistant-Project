@@ -284,9 +284,9 @@ def main():
             st.header("⚡ Quick Actions")  
             quick_actions = {  
                 "📩 Get latest emails": "Get me the latest 3 emails and summarize them in under 200 words.",  
-                "📧 Get unread emails": "Get me the latest 5 unread emails and summarize them.",
+                "📧 Get unread emails": "Get me the latest 5 unread emails and summarize them in under 100 words.",
                 "🔍 Search emails by keyword": "Search for emails related to 'invoice'.",
-                "📅 Get emails by date": "Get me all emails received on 2024-01-15.",
+                "📅 Get emails by date": "Get me all emails received on 2025-06-04.",
                 "📨 Send an email": "Send an email to example@gmail.com with subject 'Meeting' and content 'Let's meet tomorrow at 10 AM'"  
             }  
             

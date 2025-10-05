@@ -90,8 +90,8 @@ def authenticate_gmail():
     try:
         # Build credentials structure
         if "client_id" in st.secrets:
-            redirect_uri_local = st.secrets.get("redirect_uri_local", "http://localhost:8501")
-            redirect_uri_cloud = st.secrets.get("redirect_uri_cloud", "https://gmail-assistant-project.streamlit.app")
+            redirect_uri_local = st.secrets.get("redirect_uri_local")
+            redirect_uri_cloud = st.secrets.get("redirect_uri_cloud")
             redirect_uris = [redirect_uri_local, redirect_uri_cloud]
             
             credentials_dict = {
@@ -106,7 +106,7 @@ def authenticate_gmail():
             }
             
             os.makedirs("credentials", exist_ok=True)        
-            cred_path = "credentials/temp_credentials.json"
+            cred_path = "credentials/temp_credentials.json"    # file exists temporarily in session memory
             with open(cred_path, "w") as f:
                 json.dump(credentials_dict, f)
         else: 
@@ -117,6 +117,7 @@ def authenticate_gmail():
             redirect_uris = credentials_dict.get("web", {}).get("redirect_uris", [])
 
         # Check if we already have valid credentials
+        # auto authentication, doesn't need to go through full OAuth flow again
         if os.path.exists("credentials/gmail_token.json"):
             creds = Credentials.from_authorized_user_file("credentials/gmail_token.json")
             
@@ -139,21 +140,10 @@ def authenticate_gmail():
                 return creds
 
         # Determine environment and choose redirect URI
-        # Check multiple indicators for cloud deployment
-        is_cloud = (
-            "STREAMLIT_RUNTIME" in os.environ or 
-            "STREAMLIT_SHARING_MODE" in os.environ or
-            os.path.exists("/.streamlit") or  # Streamlit Cloud specific directory
-            "client_id" in st.secrets  # If using secrets, likely in cloud
-        )
-        
-        # Check manual environment override first
         if st.secrets.get("environment") == "cloud":
             chosen_redirect_uri = redirect_uri_cloud
         elif "client_id" in st.secrets:
             # If using secrets without local credentials file, assume cloud
-            chosen_redirect_uri = redirect_uri_cloud
-        elif is_cloud:
             chosen_redirect_uri = redirect_uri_cloud
         else: 
             chosen_redirect_uri = redirect_uri_local
@@ -237,11 +227,8 @@ def authenticate_gmail():
             # Debug info
             with st.expander("Debug Info (check this first!)"):
                 st.write(f"**Redirect URI being used:** `{chosen_redirect_uri}`")
-                st.write(f"**Environment detected:** {'Streamlit Cloud' if is_cloud else 'Local Development'}")
-                st.write(f"**Is cloud?** {is_cloud}")
+                st.write(f"**Environment detected:** {'Streamlit Cloud' if 'environment' in st.secrets else 'Local Development'}")
                 st.write(f"**Using st.secrets?** {'client_id' in st.secrets}")
-                st.write(f"**STREAMLIT_RUNTIME exists?** {'STREAMLIT_RUNTIME' in os.environ}")
-                st.write(f"**STREAMLIT_SHARING_MODE exists?** {'STREAMLIT_SHARING_MODE' in os.environ}")
                 st.write(f"**/.streamlit exists?** {os.path.exists('/.streamlit')}")
                 
                 # Show first part of auth URL to verify redirect_uri parameter
