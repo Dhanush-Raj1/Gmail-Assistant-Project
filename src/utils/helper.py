@@ -90,8 +90,8 @@ def authenticate_gmail():
     try:
         # Build credentials structure
         if "client_id" in st.secrets:
-            redirect_uri_local = st.secrets.get("redirect_uri_local")
-            redirect_uri_cloud = st.secrets.get("redirect_uri_cloud")
+            redirect_uri_local = st.secrets.get("redirect_uri_local", "http://localhost:8501")
+            redirect_uri_cloud = st.secrets.get("redirect_uri_cloud", "https://gmail-assistant-project.streamit.app")
             redirect_uris = [redirect_uri_local, redirect_uri_cloud]
             
             credentials_dict = {
