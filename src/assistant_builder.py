@@ -216,6 +216,21 @@ class GmailAssistant():
                         - Search all emails from a given sender.
                         - Convert received time to IST.
                         - Return a numbered list sorted by date (latest first).
+                                    
+                    6. **Fetching Unread Emails**:
+                        - ALWAYS use get_unread_emails tool with count as an INTEGER
+                        - Example: get_unread_emails(count=5) NOT get_unread_emails(count="5")
+                        - Return a numbered list:
+                          - **Sender Email**
+                          - **Brief Summary**
+                          - **Received Time** (in IST)
+                        - Sort by latest first.
+                    
+                    7. **Fetching Emails by Date**:
+                        - Use get_emails_by_date tool with proper date format
+                        - Date format should be YYYY-MM-DD
+                        - Example: get_emails_by_date(start_date="2024-01-01", end_date="2024-01-31")
+                        - Return a numbered list with sender, summary, and received time in IST
                     
                     CRITICAL RULES:
                     - ALWAYS call the actual tool functions - never just explain what you would do
