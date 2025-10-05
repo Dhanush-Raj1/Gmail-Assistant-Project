@@ -11,8 +11,15 @@ def authenticate_gmail():
     Handle Gmail Authentication for both local and Streamlit Cloud environments
     """
     try:
+        using_secrets = False
+        try:
+            if "cliend_id" in st.secrets:       # if runs on streamlit cloud
+                using_secrets = True         
+        except Exception:                       # if runs on local machine
+            using_secrets = False
+
         # Build credentials structure
-        if "client_id" in st.secrets:
+        if using_secrets:
             redirect_uri_local = st.secrets.get("redirect_uri_local")
             redirect_uri_cloud = st.secrets.get("redirect_uri_cloud")
             redirect_uris = [redirect_uri_local, redirect_uri_cloud]
@@ -71,13 +78,15 @@ def authenticate_gmail():
 
 
         # Determine environment and choose redirect URI
-        if st.secrets.get("environment") == "cloud":
-            chosen_redirect_uri = redirect_uri_cloud
-        elif "client_id" in st.secrets:
-            # If using secrets without local credentials file, assume cloud
-            chosen_redirect_uri = redirect_uri_cloud
-        else: 
-            chosen_redirect_uri = redirect_uri_local
+        if using_secrets:
+            if st.secrets.get("environment") == "cloud":
+                chosen_redirect_uri = redirect_uri_cloud
+            elif "client_id" in st.secrets:
+                chosen_redirect_uri = redirect_uri_cloud
+            else: 
+                chosen_redirect_uri = redirect_uri_local
+        else:
+            chosen_redirect_uri = redirect_uris[0] if redirect_uris else "http://localhost:8501"
         
 
         # Create OAuth flow with the chosen redirect URI
@@ -159,9 +168,8 @@ def authenticate_gmail():
             # Debug info
             with st.expander("Debug Info (check this first!)"):
                 st.write(f"**Redirect URI being used:** `{chosen_redirect_uri}`")
-                st.write(f"**Environment detected:** {'Streamlit Cloud' if 'environment' in st.secrets else 'Local Development'}")
-                st.write(f"**Using st.secrets?** {'client_id' in st.secrets}")
-                st.write(f"**/.streamlit exists?** {os.path.exists('/.streamlit')}")
+                st.write(f"**Environment detected:** {'Streamlit Cloud' if using_secrets else 'Local Development'}")
+                st.write(f"**Credentials path:** `{cred_path}`")
                 
                 # Show first part of auth URL to verify redirect_uri parameter
                 if 'redirect_uri=' in auth_url:
