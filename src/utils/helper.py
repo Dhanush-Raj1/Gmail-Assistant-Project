@@ -13,7 +13,7 @@ def authenticate_gmail():
     try:
         using_secrets = False
         try:
-            if "cliend_id" in st.secrets:       # if runs on streamlit cloud
+            if "client_id" in st.secrets:       # if runs on streamlit cloud
                 using_secrets = True         
         except Exception:                       # if runs on local machine
             using_secrets = False
@@ -28,7 +28,7 @@ def authenticate_gmail():
                 "web": {
                     "client_id": st.secrets["client_id"],
                     "project_id": st.secrets["project_id"],
-                    "auth_uri": st.secrets["auth_uri"],
+                    "auth_uri": st.secrets["auth_uri"], 
                     "token_uri": st.secrets["token_uri"],
                     "client_secret": st.secrets["client_secret"],
                     "redirect_uris": redirect_uris
