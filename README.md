@@ -146,7 +146,8 @@ streamlit run app.py
    - Send an email to <sender_email id> conveying that I'm free on wednesday at 4.30pm and ready to meet him about the investment
    - Find me the latest email from <sencer_email id> and summarize in 100 words 
 
-### Quick Actions:
+### 🔹 Quick Actions:
+### *Play with the quick actions button from the side bar*
 #### 📩 **Retrieve Latest Emails**  
 - Click **"Get Latest Emails"** to get the most recent messages.  
 - The assistant will return **Sender, Subject, and Received Time** (converted to IST).  
@@ -159,7 +160,7 @@ streamlit run app.py
 - Eg: Search for emails related to 'invoice'
 
 #### ✉️ **Send an Email**  
-- Enter the **recipient’s email**, **subject**, and **message body**.  
+- Click **"Send an email"** to send an email to a person and you can enter the subject.  
 - The assistant will send the email with a **structured format and a signature**.  
 
 <br>
