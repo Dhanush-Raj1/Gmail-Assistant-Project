@@ -156,11 +156,11 @@ streamlit run app.py
 #### 🔍 **Get unread emails**  
 - Click **"Get unread emails"** to get a summary of the latest unread emails 
 
-#### **Search emails by keyword**
+#### 🧐 **Search emails by keyword**
 - Click **"Search emails by keyword** to get emails related to specific keywords
 - Eg: Search for emails related to 'invoice'
 
-#### ✉️ **Send an Email**  
+#### ➤ **Send an Email**  
 - Click **"Send an email"** to send an email to a person and you can enter the subject.  
 - The assistant will send the email with a **structured format and a signature**.  
 
