@@ -140,7 +140,7 @@ streamlit run app.py
 
 ### 🔹 Step 2: Chat with your Inbox
 ### *Chat with the assistant in natural language*
-> [!Examples]
+> [!EXAMPLE]
 >  - Give me the summary of my 3 latest emails in under 100 words
 >  - Find me the recent 2 emails related to invoice
 >  - Send an email to <sender_email id> conveying that I'm free on wednesday at 4.30pm and ready to meet him about the investment
