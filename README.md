@@ -11,6 +11,18 @@
 
 <br>
 
+## 🚀 Live Applicaiton
+🌐 The application is deployed and live  
+  
+> 👉 [Access the web app here](https://gmail-assistant-project.streamlit.app/)  
+  
+> [!NOTE]  
+> The web app may take 1-2 minutes to load.  
+  
+> [!TIP]  
+> For the best experience, please refer to the [Usage Guide](#-usage-guide) section below to learn how to navigate and use the web app effectively.
+  
+<br>
 ## 🚀 Project Overview
 - The Gmail Assistant is an AI-driven application that helps users interact with their Gmail accounts using natural language. Built with Agno AI (formerly Phidata), Groq LLM, and Streamlit. 
 - The assistant utilizes Google OAuth 2.0 for authentication and interacts with the Gmail API to fetch and manage emails securely.
@@ -119,33 +131,36 @@ streamlit run app.py
 
 ## 📝 Usage Guide  
 
-### 🔹 Step 1: Authenticate with Gmail  
-- Click on the **"Authenticate with Gmail"** button.  
-- Sign in with your **Google account** and grant the necessary permissions.  
+[Access the web app](https://gmail-assistant-project.streamlit.app/)
 
-### 🔹 Step 2: Perform Actions  
+### 🔹 Step 1: Authenticate with Gmail  
+- Click on the **"Authenticate with Gmail"** button on the sidebar.  
+- Sign in with your **Google account** and click **Select ALL** to grant all the necessary permissions.
+- The web app will be directed, click the **Authenticate with Gmail** button once again.  
+
+### 🔹 Step 2: Chat with your Inbox
 ### *Chat with the assistant in natural language*
 - Chat with the gmail assistant in natural langugage. Example:
-   - Give me the summary of my latest emails
-   - Find me the emails related to invoice
-   - Send an email to <sender_email id> conveying that I'm free on wednesday at 4.30pm and ready to meet him about the investment.
-   -  What is the latest email about AI news? 
+   - Give me the summary of my 3 latest emails in under 100 words
+   - Find me the recent 2 emails related to invoice
+   - Send an email to <sender_email id> conveying that I'm free on wednesday at 4.30pm and ready to meet him about the investment
+   - Find me the latest email from <sencer_email id> and summarize in 100 words 
 
+### Quick Actions:
 #### 📩 **Retrieve Latest Emails**  
-- Click **"Fetch Latest Emails"** to get the most recent messages.  
+- Click **"Get Latest Emails"** to get the most recent messages.  
 - The assistant will return **Sender, Subject, and Received Time** (converted to IST).  
 
-#### 🔍 **Search Emails**  
-- Enter a **keyword, sender email, or date** in the search bar.  
-- The assistant will list matching emails from the **Inbox and Spam folders**.  
+#### 🔍 **Get unread emails**  
+- Click **"Get unread emails"** to get a summary of the latest unread emails 
+
+#### **Search emails by keyword**
+- Click **"Search emails by keyword** to get emails related to specific keywords
+- Eg: Search for emails related to 'invoice'
 
 #### ✉️ **Send an Email**  
 - Enter the **recipient’s email**, **subject**, and **message body**.  
 - The assistant will send the email with a **structured format and a signature**.  
-
-#### 📂 **Manage Emails**  
-- View, organize, and handle emails based on **priority, sender, or time received**.  
-- Spam detection and handling for **junk or phishing emails**.  
 
 <br>
 
