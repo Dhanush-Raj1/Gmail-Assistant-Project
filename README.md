@@ -17,8 +17,8 @@
 > 👉 [Access the web app here](https://gmail-assistant-project.streamlit.app/)  
   
 > [!NOTE]  
-> The web app may take 1-2 minutes to load.
-> To access and use the Gmail Assistant, your email address must first be authorized by the project owner. Please contact the owner from your registered email to request access.
+> The web app may take 1-2 minutes to load.  
+> To access and use the Gmail Assistant, your email address must first be authorized by the project owner. Please contact the owner from your registered email to request access.  
   
 > [!TIP]  
 > For the best experience, please refer to the [Usage Guide](#-usage-guide) section below to learn how to navigate and use the web app effectively.
